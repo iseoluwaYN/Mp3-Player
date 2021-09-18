@@ -1,13 +1,26 @@
-package MusicPlayer;
-
-import java.util.ArrayList;
+package MusicPlayer.entity;
 
 public class MusicPlaylist  {
-    ArrayList<String> songs = new ArrayList<String>();
-    private String albumName;
+    public Album albumName;
+    public Music music;
 
-    public String playAlbum(String albumName){
+    public MusicPlaylist(Music music) {
+
+    }
+
+    public Album getAlbumName() {
         return albumName;
     }
 
+    public void setAlbumName(Album albumName) {
+        this.albumName = albumName;
+    }
+
+    public Music getMusic() {
+        return music;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
+    }
 }
