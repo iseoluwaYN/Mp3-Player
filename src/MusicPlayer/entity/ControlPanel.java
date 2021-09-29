@@ -1,4 +1,4 @@
-package MusicPlayer;
+package MusicPlayer.entity;
 
 public class ControlPanel {
 

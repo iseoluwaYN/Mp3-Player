@@ -2,53 +2,46 @@ package MusicPlayer.repository;
 
 import MusicPlayer.entity.Music;
 import MusicPlayer.entity.MusicPlaylist;
+import MusicPlayer.exception.Mp3Exception;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
-public class PlaylistDB {
+public class PlaylistDB{
 
-    private List<Music> playlist = new ArrayList<>();
-    private static  PlaylistDB playlistDB;
+    private final MusicPlaylist musicPlaylist;
 
-    private PlaylistDB() {
-
+    public PlaylistDB(MusicPlaylist musicPlaylist) {
+            this.musicPlaylist = musicPlaylist;
     }
 
-    public static PlaylistDB getInstance() {
-        if(playlistDB == null){
-            playlistDB = new PlaylistDB();
-        }
-        return playlistDB;
-    }
+    public List<Music> getPlaylist(){return  musicPlaylist.getMusicList();}
 
     public void download(Music song){
-        playlist.add(song);
+        getPlaylist().add( song);
     }
 
     public int size() {
-        return playlist.size();
+        return getPlaylist().size();
     }
 
-    public Music searchFor(Music songTitle) {
-        for(Music song: playlist){
-            if(song == songTitle)
-                return song;
-        }
-        return null;
+    public Music searchFor(String songTitle) throws Mp3Exception {
+        Optional<Music> music = musicPlaylist
+                                    .getMusicList()
+                                    .stream()
+                                    .filter(m -> m.getName().equals(songTitle))
+                                    .findFirst();
+
+        return music.orElseThrow(() -> new Mp3Exception("Music not found"));
+
     }
 
-    public void deleteMusic(Music songTitle) {
-        for(Music song: playlist){
-            if(song == songTitle){
-                playlist.remove(song);
-            }
-            break;
-        }
+    public void deleteMusic(String songTitle) {
+        getPlaylist().removeIf(music -> music.getName().equals(songTitle));
     }
 
     public void clearDb(){
-        playlist.clear();
+        getPlaylist().clear();
     }
 }
