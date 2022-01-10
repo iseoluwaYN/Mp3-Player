@@ -119,6 +119,18 @@ public class Mp3Test {
         assertEquals(1, mp3.getNumberOfSongs());
 
         assertThrows(Mp3Exception.class, ()-> mp3.delete(betterBetter));
+    }
 
+    @Test
+    void mp3CanDeleteMusicIfSwitchedOff() throws Mp3Exception {
+        assertNotNull(mp3);
+        assertFalse(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(0, mp3.getNumberOfSongs());
+
+        mp3.delete(peru);
+        assertEquals(0, mp3.getNumberOfSongs());
     }
 }
