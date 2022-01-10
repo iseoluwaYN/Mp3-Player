@@ -1,6 +1,7 @@
 package MusicPlayer;
 
 import MusicPlayer.entity.Mp3;
+import MusicPlayer.entity.Music;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,9 +53,41 @@ public class Mp3Test {
         assertFalse(mp3.isOn());
     }
 
+    @Test
+    void mp3CanDownloadMusic(){
+        assertNotNull(mp3);
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
 
+        Music peru = new Music();
+        Music betterBetter = new Music();
 
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+        mp3.downloadMusic(betterBetter);
+        assertEquals(2, mp3.getNumberOfSongs());
+    }
 
+    @Test
+    void mp3WillNotDownloadMusicThatExists() {
+        assertNotNull(mp3);
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
 
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+    }
 
+    @Test
+    void mp3CannotDownloadMusicIfSwitchedOff(){
+        assertNotNull(mp3);
+        assertFalse(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(0, mp3.getNumberOfSongs());
+    }
 }
