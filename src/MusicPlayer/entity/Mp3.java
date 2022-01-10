@@ -1,6 +1,8 @@
 package MusicPlayer.entity;
 
 
+import MusicPlayer.exception.Mp3Exception;
+
 import java.util.ArrayList;
 
 public class Mp3 {
@@ -45,5 +47,18 @@ public class Mp3 {
 
     public int getNumberOfSongs(){
         return songs.size();
+    }
+
+    public void delete(Music music) throws Mp3Exception {
+        if(isOn){
+            for (Music song : songs) {
+                if (song.equals(music)) {
+                    songs.remove(song);
+                    numberOfSongs--;
+                    return;
+                }
+            }
+            throw new Mp3Exception("Sorry, can't find this song :(");
+        }
     }
 }

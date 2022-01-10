@@ -2,6 +2,7 @@ package MusicPlayer;
 
 import MusicPlayer.entity.Mp3;
 import MusicPlayer.entity.Music;
+import MusicPlayer.exception.Mp3Exception;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,5 +90,35 @@ public class Mp3Test {
         Music peru = new Music();
         mp3.downloadMusic(peru);
         assertEquals(0, mp3.getNumberOfSongs());
+    }
+
+    @Test
+    void mp3CanDeleteMusic() throws Mp3Exception {
+        assertNotNull(mp3);
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        mp3.delete(peru);
+        assertEquals(0, mp3.getNumberOfSongs());
+    }
+
+    @Test
+    void mp3CannotDeleteMusicThatDoesNotExist() throws Mp3Exception {
+        assertNotNull(mp3);
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        Music betterBetter = new Music();
+
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        assertThrows(Mp3Exception.class, ()-> mp3.delete(betterBetter));
+
     }
 }
