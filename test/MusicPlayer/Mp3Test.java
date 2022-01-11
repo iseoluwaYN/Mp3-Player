@@ -198,4 +198,23 @@ public class Mp3Test {
         assertEquals(SongState.PAUSE, mp3.getSongState());
         assertFalse(mp3.isPlaying());
     }
+    @Test
+    void mp3CannotPauseMusicWhenOff(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        assertEquals(SongState.PLAY, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying());
+
+        mp3.powerButton();
+        mp3.pause();
+        assertNotEquals(SongState.PAUSE, mp3.getSongState());
+    }
+
+
 }
