@@ -1,5 +1,5 @@
 package MusicPlayer.enums;
 
-public enum Controls {
+public enum SongState {
     PAUSE, PLAY, STOP
 }
