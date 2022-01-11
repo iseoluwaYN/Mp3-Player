@@ -180,4 +180,22 @@ public class Mp3Test {
         assertNotEquals(peru, mp3.getMusicPlaying());
     }
 
+
+    @Test
+    void mp3CanPauseMusicPLaying(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        assertEquals(SongState.PLAY, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying());
+
+        mp3.pause();
+        assertEquals(SongState.PAUSE, mp3.getSongState());
+        assertFalse(mp3.isPlaying());
+    }
 }

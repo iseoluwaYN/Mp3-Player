@@ -88,4 +88,16 @@ public class Mp3 {
     public boolean isPlaying() {
         return isPlaying;
     }
+
+    public void pause() {
+        if (isOn){
+            if (songState.equals(SongState.PLAY)){
+                isPlaying = false;
+                songState = SongState.PAUSE;
+            } else {
+                isPlaying = true;
+                songState = SongState.PLAY;
+            }
+        }
+    }
 }
