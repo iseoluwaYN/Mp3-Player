@@ -63,7 +63,6 @@ public class Mp3 {
             throw new Mp3Exception("Sorry, can't find this song :(");
         }
     }
-
     public void play(Music songToPlay) {
         if(isOn){
             for (Music song: songs){
@@ -94,7 +93,7 @@ public class Mp3 {
             if (songState.equals(SongState.PLAY)){
                 isPlaying = false;
                 songState = SongState.PAUSE;
-            } else {
+            } else if(songState.equals(SongState.PAUSE)){
                 isPlaying = true;
                 songState = SongState.PLAY;
             }

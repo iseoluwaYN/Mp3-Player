@@ -242,7 +242,9 @@ public class Mp3Test {
         Music peru = new Music();
         mp3.downloadMusic(peru);
         assertEquals(1, mp3.getNumberOfSongs());
+
         mp3.play(peru);
+        assertTrue(mp3.isPlaying());
         assertEquals(SongState.PLAY, mp3.getSongState());
         assertEquals(peru, mp3.getMusicPlaying());
 
@@ -255,5 +257,28 @@ public class Mp3Test {
         mp3.stop();
         assertNotEquals(SongState.STOP, mp3.getSongState());
 //        assertNotEquals(peru, mp3.getMusicPlaying());
+    }
+
+    @Test
+    void mp3CanPauseAndPLayMusic(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        assertTrue(mp3.isPlaying());
+        assertEquals(SongState.PLAY, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying());
+
+        mp3.playOrPause();
+        assertEquals(SongState.PAUSE, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying() );
+
+        mp3.playOrPause();
+        assertEquals(SongState.PLAY, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying() );
     }
 }
