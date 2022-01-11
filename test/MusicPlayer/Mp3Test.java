@@ -350,4 +350,24 @@ public class Mp3Test {
         assertEquals(0, mp3.getVolume());
     }
 
+    @Test
+    void minVolumeIsZero(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+        assertEquals(10,mp3.getVolume());
+
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+
+        assertEquals(0, mp3.getVolume());
+    }
 }
