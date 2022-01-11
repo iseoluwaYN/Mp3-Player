@@ -2,6 +2,7 @@ package MusicPlayer;
 
 import MusicPlayer.entity.Mp3;
 import MusicPlayer.entity.Music;
+import MusicPlayer.enums.SongState;
 import MusicPlayer.exception.Mp3Exception;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -133,4 +134,50 @@ public class Mp3Test {
         mp3.delete(peru);
         assertEquals(0, mp3.getNumberOfSongs());
     }
+
+    @Test
+    void mp3CanPLayMusic(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        assertEquals(SongState.PLAY, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying());
+    }
+
+    @Test
+    void mp3CannotPlayMusicIfIsOff(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        mp3.powerButton();
+        assertFalse(mp3.isOn());
+
+        mp3.play(peru);
+        assertFalse(mp3.isPlaying());
+        assertNotEquals(peru, mp3.getMusicPlaying());
+    }
+
+    @Test
+    void mp3CannotPlayMusicThatDoesNotExist(){
+        assertNotNull(mp3);
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        assertEquals(0, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        assertFalse(mp3.isPlaying());
+        assertNotEquals(peru, mp3.getMusicPlaying());
+    }
+
 }
