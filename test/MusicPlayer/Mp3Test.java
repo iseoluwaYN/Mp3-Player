@@ -294,4 +294,60 @@ public class Mp3Test {
         assertFalse(mp3.isOn());
         assertEquals(0,mp3.getVolume());
     }
+
+    @Test
+    void volumeCanBeIncreased(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+        assertEquals(10,mp3.getVolume());
+
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+
+        assertEquals(15, mp3.getVolume());
+    }
+
+    @Test
+    void volumeCannotBeIncreasedIfIsOff(){
+        assertFalse(mp3.isOn());
+        assertEquals(0,mp3.getVolume());
+
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+        mp3.increaseVolume();
+
+        assertEquals(0, mp3.getVolume());
+    }
+    @Test
+    void volumeCanBeDecreased(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+        assertEquals(10,mp3.getVolume());
+
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+
+        assertEquals(5, mp3.getVolume());
+    }
+
+    @Test
+    void volumeCannotBeDecreaseIfIsOff(){
+        assertFalse(mp3.isOn());
+        assertEquals(0,mp3.getVolume());
+
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+        mp3.decreaseVolume();
+
+        assertEquals(0, mp3.getVolume());
+    }
+
 }

@@ -124,5 +124,23 @@ public class Mp3 {
         return volume;
     }
 
+    public void increaseVolume() {
+        if (isOn){
+            if(isMute) {
+                volume++;
+                isMute=false;
+            } else if (volume<100)
+                volume++;
+        }
+    }
 
+    public void decreaseVolume() {
+        if (isOn){
+            if(isMute) {
+                volume--;
+                isMute=false;
+            } else if (volume > 0)
+                volume--;
+        }
+    }
 }
