@@ -89,7 +89,7 @@ public class Mp3 {
         return isPlaying;
     }
 
-    public void pause() {
+    public void playOrPause() {
         if (isOn){
             if (songState.equals(SongState.PLAY)){
                 isPlaying = false;
@@ -97,6 +97,16 @@ public class Mp3 {
             } else {
                 isPlaying = true;
                 songState = SongState.PLAY;
+            }
+        }
+    }
+
+    public void stop() {
+        if(isOn){
+            if ( songState == SongState.PLAY || songState == SongState.PAUSE){
+                isPlaying = false;
+                songState = SongState.STOP;
+                musicPlaying = null;
             }
         }
     }

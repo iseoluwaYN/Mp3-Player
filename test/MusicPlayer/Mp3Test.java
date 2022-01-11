@@ -194,7 +194,7 @@ public class Mp3Test {
         assertEquals(SongState.PLAY, mp3.getSongState());
         assertEquals(peru, mp3.getMusicPlaying());
 
-        mp3.pause();
+        mp3.playOrPause();
         assertEquals(SongState.PAUSE, mp3.getSongState());
         assertFalse(mp3.isPlaying());
     }
@@ -212,9 +212,48 @@ public class Mp3Test {
         assertEquals(peru, mp3.getMusicPlaying());
 
         mp3.powerButton();
-        mp3.pause();
+        mp3.playOrPause();
         assertNotEquals(SongState.PAUSE, mp3.getSongState());
     }
 
+    @Test
+    void mp3CanStopMusicPlaying(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
 
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        assertEquals(SongState.PLAY, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying());
+
+        mp3.stop();
+        assertEquals(SongState.STOP, mp3.getSongState());
+        assertNotEquals(peru, mp3.getMusicPlaying());
+    }
+
+     @Test
+    void mp3CannotStopPlayingMusicWhenOff(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        assertEquals(1, mp3.getNumberOfSongs());
+        mp3.play(peru);
+        assertEquals(SongState.PLAY, mp3.getSongState());
+        assertEquals(peru, mp3.getMusicPlaying());
+
+         mp3.playOrPause();
+         assertEquals(SongState.PAUSE, mp3.getSongState());
+         assertEquals(peru, mp3.getMusicPlaying() );
+
+        mp3.powerButton();
+        assertFalse(mp3.isOn());
+        mp3.stop();
+        assertNotEquals(SongState.STOP, mp3.getSongState());
+//        assertNotEquals(peru, mp3.getMusicPlaying());
+    }
 }
