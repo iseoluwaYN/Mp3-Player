@@ -281,4 +281,17 @@ public class Mp3Test {
         assertEquals(SongState.PLAY, mp3.getSongState());
         assertEquals(peru, mp3.getMusicPlaying() );
     }
+
+    @Test
+    void mp3HasDefaultVolume(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+        assertEquals(10,mp3.getVolume());
+    }
+
+    @Test
+    void mp3CannotGetVolumeIfIsOff(){
+        assertFalse(mp3.isOn());
+        assertEquals(0,mp3.getVolume());
+    }
 }

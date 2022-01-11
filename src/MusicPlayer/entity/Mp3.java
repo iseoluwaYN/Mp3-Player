@@ -14,45 +14,54 @@ public class Mp3 {
     private Music musicPlaying;
     private SongState songState;
     private boolean isPlaying;
+    private int volume;
+    private boolean isMute;
 
 
     public boolean isOn() {
         return isOn;
     }
-    public void switchOn(){
+
+    public void switchOn() {
         isOn = true;
+        volume= 10;
     }
-    public void switchOff(){
+
+    public void switchOff() {
         isOn = false;
+        musicPlaying = null;
     }
-    public void powerButton(){
-        if(isOn) {
+
+    public void powerButton() {
+        if (isOn) {
             switchOff();
-        }
-        else switchOn();
+        } else switchOn();
     }
+
     public void downloadMusic(Music music) {
-        boolean haveSong=false;
-        if(isOn) {
-            if (numberOfSongs>0) {
-                for(Music song : songs) {
+        boolean haveSong = false;
+        if (isOn) {
+            if (numberOfSongs > 0) {
+                for (Music song : songs) {
                     if (song != null && song.equals(music)) {
                         haveSong = true;
                         break;
                     }
                 }
             }
-            if(!haveSong){
+            if (!haveSong) {
                 songs.add(music);
                 numberOfSongs++;
             }
         }
     }
-    public int getNumberOfSongs(){
+
+    public int getNumberOfSongs() {
         return songs.size();
     }
+
     public void delete(Music music) throws Mp3Exception {
-        if(isOn){
+        if (isOn) {
             for (Music song : songs) {
                 if (song.equals(music)) {
                     songs.remove(song);
@@ -63,10 +72,11 @@ public class Mp3 {
             throw new Mp3Exception("Sorry, can't find this song :(");
         }
     }
+
     public void play(Music songToPlay) {
-        if(isOn){
-            for (Music song: songs){
-                if(song != null&& song.equals(songToPlay)){
+        if (isOn) {
+            for (Music song : songs) {
+                if (song != null && song.equals(songToPlay)) {
                     musicPlaying = song;
                     isPlaying = true;
                     songState = SongState.PLAY;
@@ -89,11 +99,11 @@ public class Mp3 {
     }
 
     public void playOrPause() {
-        if (isOn){
-            if (songState.equals(SongState.PLAY)){
+        if (isOn) {
+            if (songState.equals(SongState.PLAY)) {
                 isPlaying = false;
                 songState = SongState.PAUSE;
-            } else if(songState.equals(SongState.PAUSE)){
+            } else if (songState.equals(SongState.PAUSE)) {
                 isPlaying = true;
                 songState = SongState.PLAY;
             }
@@ -101,12 +111,18 @@ public class Mp3 {
     }
 
     public void stop() {
-        if(isOn){
-            if ( songState == SongState.PLAY || songState == SongState.PAUSE){
+        if (isOn) {
+            if (songState == SongState.PLAY || songState == SongState.PAUSE) {
                 isPlaying = false;
                 songState = SongState.STOP;
                 musicPlaying = null;
             }
         }
     }
+
+    public int getVolume() {
+        return volume;
+    }
+
+
 }
