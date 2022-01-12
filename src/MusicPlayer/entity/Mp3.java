@@ -186,14 +186,16 @@ public class Mp3 {
     }
 
     public void playNextSong() {
-        for (int i = 0; i < songs.size(); i++){
-            if(musicPlaying == songs.get(i)) {
-                if (songs.size() > 1) {
-                    musicPlaying =songs.get(i + 1);
-                }else {
-                    musicPlaying= songs.get(i);
+        if(isOn) {
+            for (int i = 0; i < songs.size(); i++) {
+                if (musicPlaying == songs.get(i)) {
+                    if (songs.size() > 1) {
+                        musicPlaying = songs.get(i + 1);
+                    } else {
+                        musicPlaying = songs.get(i);
+                    }
+                    break;
                 }
-                break;
             }
         }
     }
