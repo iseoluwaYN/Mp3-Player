@@ -507,4 +507,20 @@ public class Mp3Test {
         assertEquals(2, mp3.getNumberOfSongsInPlaylist(myFistPlaylist));
     }
 
+    @Test
+    void m3pCanPlayNextSong(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        Music betterBetter = new Music();
+        mp3.downloadMusic(peru);
+        mp3.downloadMusic(betterBetter);
+        assertEquals(2, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        assertEquals(peru, mp3.getMusicPlaying());
+        mp3.playNextSong();
+        assertEquals(betterBetter, mp3.getMusicPlaying());
+    }
 }

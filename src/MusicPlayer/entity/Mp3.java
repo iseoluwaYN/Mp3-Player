@@ -7,7 +7,6 @@ import MusicPlayer.exception.Mp3Exception;
 import java.util.ArrayList;
 
 public class Mp3 {
-
     private boolean isOn;
     private ArrayList<Music> songs = new ArrayList<>();
     private int numberOfSongs;
@@ -18,7 +17,6 @@ public class Mp3 {
     private boolean isMute;
     private ArrayList<ArrayList<Music>> playlists = new ArrayList<>();
 
-
     public boolean isOn() {
         return isOn;
     }
@@ -27,18 +25,15 @@ public class Mp3 {
         isOn = true;
         volume= 10;
     }
-
     public void switchOff() {
         isOn = false;
         musicPlaying = null;
     }
-
     public void powerButton() {
         if (isOn) {
             switchOff();
         } else switchOn();
     }
-
     public void downloadMusic(Music music) {
         boolean haveSong = false;
         if (isOn) {
@@ -73,7 +68,6 @@ public class Mp3 {
             throw new Mp3Exception("Sorry, can't find this song :(");
         }
     }
-
     public void play(Music songToPlay) {
         if (isOn) {
             for (Music song : songs) {
@@ -90,11 +84,9 @@ public class Mp3 {
     public SongState getSongState() {
         return songState;
     }
-
     public Music getMusicPlaying() {
         return musicPlaying;
     }
-
     public boolean isPlaying() {
         return isPlaying;
     }
@@ -110,7 +102,6 @@ public class Mp3 {
             }
         }
     }
-
     public void stop() {
         if (isOn) {
             if (songState == SongState.PLAY || songState == SongState.PAUSE) {
@@ -134,7 +125,6 @@ public class Mp3 {
                 volume++;
         }
     }
-
     public void decreaseVolume() {
         if (isOn){
             if(isMute) {
@@ -144,7 +134,6 @@ public class Mp3 {
                 volume--;
         }
     }
-
     public void muteOrUnmute() {
         if (isOn) {
             if (!isMute) {
@@ -178,7 +167,6 @@ public class Mp3 {
             }
         }
     }
-
     public int getNumberOfSongsInPlaylist(ArrayList playlistName) {
         int playlistNoOfSongs = 0;
         for (ArrayList<Music> playlist : playlists) {
@@ -187,13 +175,25 @@ public class Mp3 {
         }
         return playlistNoOfSongs;
     }
-
     public void removeFromPlaylist(Music songToRemove, ArrayList<Music> playlistOfChoice) {
         if(isOn) {
             for (ArrayList playlist : playlists) {
                 if (playlist.equals(playlistOfChoice)) {
                     playlistOfChoice.remove(songToRemove);
                 }
+            }
+        }
+    }
+
+    public void playNextSong() {
+        for (int i = 0; i < songs.size(); i++){
+            if(musicPlaying == songs.get(i)) {
+                if (songs.size() > 1) {
+                    musicPlaying =songs.get(i + 1);
+                }else {
+                    musicPlaying= songs.get(i);
+                }
+                break;
             }
         }
     }
