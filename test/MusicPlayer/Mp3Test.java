@@ -370,4 +370,19 @@ public class Mp3Test {
 
         assertEquals(0, mp3.getVolume());
     }
+    @Test
+    void mp3CanMuteAndUnmute(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        mp3.muteOrUnmute();
+        assertTrue(mp3.isMute());
+
+        assertEquals(0, mp3.getVolume());
+        mp3.muteOrUnmute();
+        assertFalse(mp3.isMute());
+    }
+
+    @Test
+    void mp3returnsToPreviousVolumeAfterUmnute()
 }

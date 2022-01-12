@@ -144,5 +144,18 @@ public class Mp3 {
         }
     }
 
+    public void muteOrUnmute() {
+        if (isOn) {
+            if (!isMute) {
+                volume = 0;
+                isMute = true;
+            } else {
+                isMute = false;
+            }
+        }
+    }
 
+    public boolean isMute() {
+        return isMute;
+    }
 }
