@@ -543,4 +543,43 @@ public class Mp3Test {
     }
 
 
+    @Test
+    void testThatMp3PlayerCanPlayPreviousMusic(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        Music betterBetter = new Music();
+        mp3.downloadMusic(peru);
+        mp3.downloadMusic(betterBetter);
+        assertEquals(2, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        mp3.playNextSong();
+        assertEquals(betterBetter, mp3.getMusicPlaying());
+        mp3.playPreviousTrack();
+        assertEquals(peru,mp3.getMusicPlaying());
+    }
+
+     @Test
+    void testThatMp3PlayerCannotPlayPreviousMusicWhenOff(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        Music betterBetter = new Music();
+        mp3.downloadMusic(peru);
+        mp3.downloadMusic(betterBetter);
+        assertEquals(2, mp3.getNumberOfSongs());
+
+        mp3.play(peru);
+        mp3.playNextSong();
+        assertEquals(betterBetter, mp3.getMusicPlaying());
+
+        mp3.powerButton();
+        mp3.playPreviousTrack();
+        assertEquals(null,mp3.getMusicPlaying());
+    }
+
+
 }

@@ -184,7 +184,6 @@ public class Mp3 {
             }
         }
     }
-
     public void playNextSong() {
         if(isOn) {
             for (int i = 0; i < songs.size(); i++) {
@@ -193,6 +192,21 @@ public class Mp3 {
                         musicPlaying = songs.get(i + 1);
                     } else {
                         musicPlaying = songs.get(i);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    public void playPreviousTrack() {
+        if(isOn){
+            for (int i = 0; i < songs.size(); i++) {
+                if (musicPlaying == songs.get(i)) {
+                    if ( i ==0) {
+                        musicPlaying = songs.get(numberOfSongs - 1);
+                    } else {
+                        musicPlaying = songs.get(i-1);
                     }
                     break;
                 }
