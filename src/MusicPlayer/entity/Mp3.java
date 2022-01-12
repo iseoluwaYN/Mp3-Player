@@ -187,4 +187,14 @@ public class Mp3 {
         }
         return playlistNoOfSongs;
     }
+
+    public void removeFromPlaylist(Music songToRemove, ArrayList<Music> playlistOfChoice) {
+        if(isOn) {
+            for (ArrayList playlist : playlists) {
+                if (playlist.equals(playlistOfChoice)) {
+                    playlistOfChoice.remove(songToRemove);
+                }
+            }
+        }
+    }
 }
