@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Mp3Test {
@@ -384,5 +386,80 @@ public class Mp3Test {
     }
 
     @Test
-    void mp3returnsToPreviousVolumeAfterUmnute()
+    void mp3returnsToPreviousVolumeAfterUnmute(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+        Music peru = new Music();
+        mp3.downloadMusic(peru);
+        mp3.play(peru);
+        assertEquals(10, mp3.getVolume());
+
+
+        mp3.muteOrUnmute();
+        assertTrue(mp3.isMute());
+        assertEquals(0, mp3.getVolume());
+        mp3.powerButton();
+        mp3.muteOrUnmute();
+        assertEquals(0, mp3.getVolume());
+    }
+
+    @Test
+    void m3pCanCreatePlaylist(){
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        ArrayList<Music> myFistPlaylist = new ArrayList<>();
+        mp3.createPlaylist(myFistPlaylist);
+        assertEquals(1, mp3.getNumberOfPlaylists());
+    }
+
+    @Test
+    void m3pCannotCreatePlaylistWhenOff(){
+        assertFalse(mp3.isOn());
+
+        ArrayList<Music> myFistPlaylist = new ArrayList<>();
+        mp3.createPlaylist(myFistPlaylist);
+        assertEquals(0, mp3.getNumberOfPlaylists());
+    }
+
+    @Test
+    void m3pCanAdMusicToPlaylist() {
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        Music betterBetter = new Music();
+        mp3.downloadMusic(peru);
+        mp3.downloadMusic(betterBetter);
+        assertEquals(2, mp3.getNumberOfSongs());
+
+        ArrayList<Music> myFistPlaylist = new ArrayList<>();
+        mp3.createPlaylist(myFistPlaylist);
+        assertEquals(1, mp3.getNumberOfPlaylists());
+
+        mp3.addToPlaylist(peru, myFistPlaylist);
+        assertEquals(1, mp3.getNumberOfSongsInPlaylist(myFistPlaylist));
+    }
+
+    @Test
+    void m3pCannotAddToPlaylistWhenOff() {
+        mp3.powerButton();
+        assertTrue(mp3.isOn());
+
+        Music peru = new Music();
+        Music betterBetter = new Music();
+        mp3.downloadMusic(peru);
+        mp3.downloadMusic(betterBetter);
+        assertEquals(2, mp3.getNumberOfSongs());
+
+        ArrayList<Music> myFistPlaylist = new ArrayList<>();
+        mp3.createPlaylist(myFistPlaylist);
+        assertEquals(1, mp3.getNumberOfPlaylists());
+
+        mp3.powerButton();
+        mp3.addToPlaylist(peru, myFistPlaylist);
+        assertEquals(0, mp3.getNumberOfSongsInPlaylist(myFistPlaylist));
+    }
+
+
 }

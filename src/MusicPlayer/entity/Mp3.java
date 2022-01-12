@@ -16,6 +16,7 @@ public class Mp3 {
     private boolean isPlaying;
     private int volume;
     private boolean isMute;
+    private ArrayList<ArrayList<Music>> playlists = new ArrayList<>();
 
 
     public boolean isOn() {
@@ -157,5 +158,33 @@ public class Mp3 {
 
     public boolean isMute() {
         return isMute;
+    }
+
+    public void createPlaylist(ArrayList<Music> newPlaylist) {
+        if (isOn)
+            playlists.add(newPlaylist);
+    }
+
+    public int getNumberOfPlaylists() {
+        return playlists.size();
+    }
+
+    public void addToPlaylist(Music songToAdd, ArrayList<Music> playlistOfChoice) {
+        if(isOn) {
+            for (ArrayList playlist : playlists) {
+                if (playlist.equals(playlistOfChoice)) {
+                    playlistOfChoice.add(songToAdd);
+                }
+            }
+        }
+    }
+
+    public int getNumberOfSongsInPlaylist(ArrayList playlistName) {
+        int playlistNoOfSongs = 0;
+        for (ArrayList<Music> playlist : playlists) {
+            if (playlist.equals(playlistName))
+                playlistNoOfSongs = playlist.size();
+        }
+        return playlistNoOfSongs;
     }
 }
